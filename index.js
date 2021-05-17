@@ -1,20 +1,29 @@
-function fetchBooks() {
-  // To pass the tests, don't forget to return your fetch!
-  fetch('https://anapioficeandfire.com/api/books')
-  .then(resp => resp.json())
-  .then(json => console.log(json));
-  return fetch()
+// create your App component here
+import React from 'react';
+
+class App extends React.Component {
+
+  state = {
+    people: []
+  }
+
+  componentDidMount(){
+    fetch('http://api.open-notify.org/astros.json')
+    .then(response => response.json())
+      .then(data => {
+        this.setState({
+          people: data.people
+      })
+    })
+  }
+
+  render() {
+    return(
+      <div>
+        {this.state.people.map(person => <h4>{person.name}</h4>)}
+      </div>
+    );
+  }
 }
 
-function renderBooks(books) {
-  const main = document.querySelector('main');
-  books.forEach(book => {
-    const h2 = document.createElement('h2');
-    h2.innerHTML = book.name;
-    main.appendChild(h2);
-  });
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  fetchBooks();
-});
+export default App;
